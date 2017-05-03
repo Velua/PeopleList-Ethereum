@@ -50,7 +50,7 @@ class App extends Component {
         {this.state.people.map(person => (
           <p>{person.firstName} {person.lastName} is {person.age}</p>
           ))}
-      </div>
+      </div>  
     );
   }
 }
