@@ -12,8 +12,27 @@ var peopleContract = ETHEREUM_CLIENT.eth.contract(peopleContractAbi).at(peopleCo
 
 class App extends Component {
 
+  constructor(props){
+    super(props)
+    this.state = { people: [] }
+  }
+
   componentWillMount(){
-    console.log(peopleContract.getPeople.call())
+    const data = peopleContract.getPeople.call()
+    const firstNames = data[0]
+    const lastNames = data[1]
+    const ages = data[2]
+
+    const length = firstNames.length && lastNames.length && ages.length
+    const people = []
+    for (var i = 0; i < length; i++){
+      people.push({
+        firstName: ETHEREUM_CLIENT.toAscii(firstNames[i]),
+        lastName: ETHEREUM_CLIENT.toAscii(lastNames[i]),
+        age: ages[i].c[0]
+      })
+    }
+    this.setState({ people })
   }
 
   render() {
@@ -28,20 +47,9 @@ class App extends Component {
         <p className="App-intro">
           Read and write your name to the blockchain!
         </p>
-        <div className="people-table">
-          <table>
-            <tr>
-              <th>Name</th>
-              <th>Age</th>
-              <th>Address</th>
-            </tr>
-            <tr>
-              <td>Goes here</td>
-              <td>Goes here</td>
-              <td>Goes here</td>
-            </tr>
-          </table>
-        </div>
+        {this.state.people.map(person => (
+          <p>{person.firstName} {person.lastName} is {person.age}</p>
+          ))}
       </div>
     );
   }
