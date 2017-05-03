@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .App-logo {
@@ -21,4 +23,11 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+
+.people-table {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
